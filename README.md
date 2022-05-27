@@ -7,7 +7,8 @@
 • Helpful for network communication and where a hacker can easily access unencrypted data.
 • It is an essential method as it helps you to securely protect data that you don’t want anyone else to have access.
  
-Future Improvements: 
+### Future Improvements: 
+
 -Adding GUI [ graphical user interface ] because that allows users to interact with programs in different ways than typing, thus being more user-friendly.
 - Avoiding using functions that return pointers and implementing more robust means that perform the required tasks.
 - Adding the option to encrypt using a keyword as the key instead of a number, hence adding an extra layer of security to the encrypted data.
