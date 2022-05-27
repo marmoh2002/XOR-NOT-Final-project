@@ -1,6 +1,5 @@
-
-#Encrypting and Decrypting using XOR and Inverter
- There are  reasons for using encryption:
+# Encrypting and Decrypting using XOR and Inverter
+### Here are some reasons that would make you consider encrypting your data:
 • Helps you to protect your confidential data such as passwords and login id.
 • Provides confidentiality of private information.
 • Helps you to ensure that that the document or file has not been altered.
