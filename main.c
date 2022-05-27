@@ -4,9 +4,10 @@
 
 char* getString();
 void programStart();
-char* XorEncrypt(char*,int ,int);
-char* InvEncrypt(char*,int);
-void XorDecrypt(char*,int,int);
+char* XorEncrypt(char*,int);
+char* InvEncrypt(char*);
+char* XorDecrypt(char*,int);
+int checkin();
 int main()
 {
     programStart();
@@ -15,43 +16,54 @@ int main()
 
 void programStart()
 {
-    int n;
+    int n,flag=1;
     char* str = getString();
-    printf("Do you want:\n");
-    printf("1-Encryption\n");
-    printf("2-Decryption\n");
-    while(1)
-    {
-        scanf("%d",&n);
-        if (n>2 || n<1)
-        {
-            printf("Invalid input! Please enter 1 or 2.");
-        }
-        else{break;}
-    }
+    printf("Do you want:\n1-Encryption\n2-Decryption\n");
+    n=checkin();
     if (n==1)
     {
-        int y;
+        int x,y;
         printf("Select type of encryption:\n");
         printf("1-XOR Encryption\n");
         printf("2-Inverter Encryption\n");
-        scanf("%d",&y);
+        y=checkin();
         if (y==1)
         {
-            int encryptor, x;
+            int encryptor;
             printf("Enter seed: ");
             scanf("%d",&encryptor);
-            char* ptr=XorEncrypt(str,strlen(str),encryptor);
+
+            char* xen = (char*)malloc(sizeof(char*));
+            xen = XorEncrypt(str,encryptor);
+            printf("Encrypted phrase is: %s\n", xen);
             printf("Do you want to decrypt? (1-yes,2-no):");
-            scanf("%d",&x);
+            x=checkin();
             if (x==1)
             {
-                XorDecrypt(ptr,strlen(str),encryptor);
+               printf("Decrypted phrase is: %s\n",XorDecrypt(xen,encryptor));
+               return;
+            }
+            else
+            {
+                return;
             }
         }
         else if(y==2)
         {
-            InvEncrypt(str,strlen(str));
+            char* inven = (char*)malloc(sizeof(char*));
+            inven = InvEncrypt(str);
+            printf("Encrypted phrase is: %s\n", inven);
+            printf("Do you want to decrypt? (1-yes,2-no):");
+            x=checkin();
+            if (x==1)
+            {
+               printf("Decrypted phrase is: %s\n", InvEncrypt(inven));
+               return;
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }
@@ -60,7 +72,7 @@ char* getString()
 {
     int size=1;
     char c,*str;
-    printf("Enter string:\n");
+    printf("Enter phrase: ");
     str=(char*)malloc(sizeof(char)*size);
     while((c=getchar())!='\n')
     {
@@ -70,52 +82,59 @@ char* getString()
     }
     str = realloc(str, sizeof(char)*size);
     *(str+size-1)='\0';
+
     return str;
 }
 
 
 
-char* XorEncrypt(char* str,int size,int n)
+char* XorEncrypt(char* str,int key)
 {
-    char enStr[size];
-    char* ptr = enStr;
+    char temp[strlen(str)];
     for(int i=0;i<strlen(str);i++)
     {
-        enStr[i] = str[i]^n;
+        temp[i] = str[i]^key;
     }
-    for (int i=0; i<strlen(enStr);i++)
-    {
-        printf("%c",enStr[i]);
-    }
-    printf("\n");
-    return ptr;
+
+    char* result = (char*)malloc(sizeof(char*));
+    strcpy(result,temp);
+    return result;
 }
 
-
-char* InvEncrypt(char* str,int size)
+char* InvEncrypt(char* str)
 {
-    char enStr[size];
+    char temp[strlen(str)];
     for(int i=0;i<strlen(str);i++)
     {
-        enStr[i] = ~str[i];
+        temp[i] = ~str[i];
     }
-    for (int i=0; i<strlen(enStr);i++)
-    {
-        printf("%c",enStr[i]);
-    }
-    return enStr;
+    char* result = (char*)malloc(sizeof(char*));
+    strcpy(result,temp);
+    return result;
 }
 
-void XorDecrypt(char* str,int size,int n)
+char* XorDecrypt(char* str,int key)
 {
-    char decStr[size];
+    char temp[strlen(str)];
     for(int i=0;i<strlen(str);i++)
     {
-        decStr[i] = n^str[i];
+        temp[i] = key^str[i];
     }
-    for (int i=0; i<strlen(decStr);i++)
+    char* result = (char*)malloc(sizeof(char*));
+    strcpy(result,temp);
+    return result;
+}
+int checkin()
+{
+    int flag=1, n;
+    while(flag)
     {
-        printf("%c",decStr[i]);
+        scanf("%d",&n);
+        if (n>2 || n<1)
+        {
+            printf("Invalid input! Please choose between 1 and 2.\n\n");
+        }
+        else{flag=0;}
     }
-    printf("\n");
+ return n;
 }
