@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 char* getString();
 void programStart();
 char* XorEncrypt(char*,int);
